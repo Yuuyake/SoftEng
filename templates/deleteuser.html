@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block extra_head %}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='signin.css') }}" />
+{% endblock %}
+{% block content %}
+
+      <form role="form" action="/deleteuser" method="post" name="delete-form"
+            class="form-signin">
+
+        <h4 class="form-signin-heading">Delete User</h4>
+		<hr></hr>
+        <div class="form-group">
+        <select class="form-control" name="selecteduser" style="font-family: Georgia; width:auto">
+        	<option value=""> - Select user - </option>
+        	{%for (username,nickname) in users%}
+				<option {% if username == 'admin' %}disabled {% endif %}value={{username}} {% if username == 'admin'%} style="color:#cdcdcd"{% endif %}>{{nickname}}</option>
+
+			{% endfor %}
+		</select>
+		<br>
+		</div>
+
+	        <button type="submit"
+	        		class="btn btn-primary btn-danger" name="btn" value="Delete">Delete user</button>
+      </form>
+{% endblock %}

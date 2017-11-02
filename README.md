@@ -1,37 +1,17 @@
-## Welcome to GitHub Pages
+This README.md file is displayed on your project page. You should edit this 
+file to describe your project, including instructions for building and 
+running the project, pointers to the license under which you are making the 
+project available, and anything else you think would be useful for others to
+know.
 
-You can use the [editor on GitHub](https://github.com/Yuuyake/SoftEng/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+We have created an empty license.txt file for you. Well, actually, it says,
+"<Replace this text with the license you've chosen for your project.>" We 
+recommend you edit this and include text for license terms under which you're
+making your code available. A good resource for open source licenses is the 
+[Open Source Initiative](http://opensource.org/).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Be sure to update your project's profile with a short description and 
+eye-catching graphic.
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Yuuyake/SoftEng/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out. this is extension
+Finally, consider defining some sprints and work items in Track & Plan to give 
+interested developers a sense of your cadence and upcoming enhancements.

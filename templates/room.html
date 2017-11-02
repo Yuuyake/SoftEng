@@ -1,0 +1,73 @@
+  {% extends "layout.html" %}
+  {% block title %}My Rooms Messages{% endblock %}
+    {% block content %}
+
+<style>
+#twittit{
+	padding-top: 10px;
+}
+
+#twitcon{
+	width: 300px;
+	word-wrap: break-word;
+}
+
+#twitwrapper{
+	display:inline-block;
+	border-radius: 35px;
+    padding: 10px;
+    background: #659bf2;
+    width: 350px;
+}
+
+#twitwrapperrt{
+	display:inline-block;
+	border-radius: 35px;
+    padding: 10px;
+    background: #8ab3f2;
+    width: 350px;
+}
+</style>
+
+
+  <body>
+    <h2	style="padding-bottom: 15px;">Welcome to Room {{ room_id }}</h2>
+
+    <div class="page-header">
+        <h3>Post A Message</h3>
+      </div>
+
+      <form role="form" action="" method="post" name="add_twits"
+            class="form-horizontal">
+        <div class="form-group">
+          <label for="content" class="control-label col-sm-1">Content:</label>
+          <div class="col-sm-10">
+            <input type="text" name="content" maxlength="45" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-1 col-sm-10">
+            <button type="submit" name="save"
+                    class="btn btn-primary">Add Message</button>
+          </div>
+        </div>
+      </form>
+
+	<div class="page-header">
+        <h3>Here is Your messages</h3>
+      </div>
+
+		{% for message in messages %}
+		<div id="twitwrapper">
+		<h4>
+		<font size="1">-{{ message.userhandle }}</font><br>
+		</h4>
+        <h3>
+		<font size="4">{{ message.context }}</font><br>
+		</h3>
+		</div>
+		<br><br>
+		{% endfor %}
+  </body>
+  {% endblock %}

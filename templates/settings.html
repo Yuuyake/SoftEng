@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+<body>
+
+<form role="form" action="" method="post">
+<div class="row">
+	<h2>Main Settings</h2>
+	 	<div class="col-md-12" >
+	  		<div class="col-xs-2 col-sm-2 col-md-3 form-group has-success">
+			    <label>E-mail</label>
+			    <input id="email" name="email" type="email" placeholder="example@mail.com" class="form-control input-sm">
+
+			    <label>Language</label>
+			      <select  name="Language">
+			        <option value="Turkiye">Turkish</option>
+			        <option value="US">English</option>
+			        <option value="Italiano">Italiano</option>
+			        <option value="Hrvatski">Hrvatski</option>
+			        <option value="Espanol">Espanol</option>
+			      </select>
+		 	 </div>
+	 		 <div class="col-xs-2 col-sm-2 col-md-3 form-group has-success">
+			    <label>Update Personal Info</label>
+			    <div>
+				    <input  name="nickname" type="text" placeholder="nickname" class="form-control input-sm">
+				    <input  name="name" type="text" placeholder="name" class="form-control input-sm">
+				    <input  name="surname" type="text" placeholder="surname" class="form-control input-sm">
+				    <button  name="btn" value="update" type="submit" class="btn btn-success "> Update </button>
+			    </div>
+			</div>
+		 	<div class="col-xs-2 col-sm-2 col-md-3 form-group has-success">
+				 <button  name="btn" value="show" type="submit" class="btn btn-info "> Show Settings </button>
+				 <button  name="btn" value="delete" type="submit" class="btn btn-danger "> Reset Settings </button>
+			</div>
+
+			<table class="table table-bordered" border='1'>
+			<tr>
+				{% for line in table %}
+						<td> {{ line }} </td>
+				{% endfor %}
+				</tr>
+
+			</table>
+		</div>
+
+		 <div class="col-md-12" >
+		 <div class="col-xs-2 col-sm-2 col-md-3 form-group has-success">
+			<h2>Notification Settings</h2>
+			<label>Notifs</label>
+		      <select  name="notif">
+		        <option value="1">ON</option>
+		        <option value="0">OFF</option>
+		      </select>
+		      <button  name="btn" value="notif_update" type="submit" class="btn btn-info "> Approve </button>
+		</div>
+	</div>
+</div>
+</form>
+
+
+    {% endblock %}
+</body>

@@ -1,0 +1,7 @@
+You have to log in as administrator with the following credentials in order to initialize database:
+
+username:	admin
+password:	database1616
+
+The database will be automaticall initialized and you will be directed to the home page.
+
