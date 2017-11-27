@@ -1,0 +1,10 @@
+
+*.pyc
+
+\.vagrant/machines/default/virtualbox/synced_folders
+
+\.vagrant/machines/default/virtualbox/
+
+\.idea/
+
+\.settings/org\.eclipse\.core\.resources\.prefs

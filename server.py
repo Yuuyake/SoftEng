@@ -128,6 +128,18 @@ def adminpanel():
         abort(401)
     return render_template('adminpanel.html')
 
+@app.route('/addroom')
+@login_required
+def addroom():
+    return render_template('add_room.html')
+
+@app.route('/enroll')
+@login_required
+def enroll():
+    return render_template('enroll.html')
+
+
+
 @app.route('/rooms/<int:room_id>', methods=['GET', 'POST'])
 @login_required
 def rooms_page(room_id):
