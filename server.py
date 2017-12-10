@@ -166,17 +166,26 @@ def rooms_page(room_id):
             return(redirect(url_for('error_page')))
 
         else:
+            userids=current_user.username
             rooms=current_app.Roomlist.get_room(room_id)
-            return render_template('room.html', messages=message, roomname=rooms.roomname)
+            return render_template('room.html', messages=message, rooms=rooms, userids=userids)
     else:
-        content = request.form['content']
-        messageid=0
-        userh="NONE"
-        message = Message(content, messageid, userh)
-        current_app.Messagelist.add_message(message, room_id)
-        message = current_app.Messagelist.get_all_message(room_id)
-        return render_template('room.html', messages=message, room_id=room_id)
+        print("cem123")
+        if request.form['submit'] == "delete":
+            current_app.Roomlist.delete_room(room_id)
+            return(redirect(url_for('home_page')))
 
+        elif request.form['submit'] == "add":
+            content = request.form['content']
+            messageid=0
+            userh="NONE"
+            message = Message(content, messageid, userh)
+            current_app.Messagelist.add_message(message, room_id)
+            message = current_app.Messagelist.get_all_message(room_id)
+            return(redirect(url_for('rooms_page'), room_id))
+
+        else:
+            return(redirect(url_for('rooms_page'), room_id))
 
 @app.route('/deleteuser', methods=['GET','POST'])
 @login_required
