@@ -16,20 +16,6 @@ class Roomlist:
         print(usernum)
         return usernum
 
-    def get_room(self, roomid):
-            connection = dbapi2.connect(current_app.config['dsn'])
-            cursor = connection.cursor()
-            cursor.execute("""SELECT
-                            rooms.roomid,
-                            users.username,
-                            rooms.maxp
-                            FROM rooms
-                            LEFT JOIN users ON users.id = rooms.userid
-                            WHERE rooms.roomid=%s""", (roomid,))
-            roomid, username, maxp=cursor.fetchone()
-            rooms=Room(roomid, username, maxp)
-            return rooms
-
     def getadmin(self):
         connection = dbapi2.connect(current_app.config['dsn'])
         cursor = connection.cursor()
@@ -44,12 +30,14 @@ class Roomlist:
         cursor.execute("""SELECT
                         rooms.roomid,
                         users.username,
-                        rooms.maxp
+                        rooms.maxp,
+                        rooms.refcode,
+                        rooms.roomname                       
                         FROM rooms
                         LEFT JOIN users ON users.id = rooms.userid
                         WHERE rooms.roomid=%s""", (roomid,))
-        roomid, username, maxp=cursor.fetchone()
-        rooms=Room(roomid, username, maxp)
+        roomid, username, maxp, refcode, roomname=cursor.fetchone()
+        rooms=Room(roomid, username, maxp, refcode, roomname)
         return rooms
 
     def get_room_user(self, userid):
@@ -58,18 +46,15 @@ class Roomlist:
         cursor.execute("""SELECT
                         rooms.roomid,
                         users.username,
-                        rooms.maxp
+                        rooms.maxp,
+                        rooms.refcode,
+                        rooms.roomname
                         FROM ROOMS
                         RIGHT JOIN USERS ON users.id = rooms.userid
                         WHERE rooms.userid=%s
                         ORDER BY rooms.roomid DESC""", (userid,))
-
-        if cursor.rowcount==0:
-            room = Room(-1, 'admin', 11)
-            return room
-
-        room = [(Room(roomid, username, maxp))
-                    for roomid, username, maxp in cursor]
+        room = [(Room(roomid, userid, maxp, refcode, roomname))
+                    for roomid, userid, maxp, refcode, roomname in cursor]
         return room
 
     def chkroom(self, userid):
@@ -91,8 +76,8 @@ class Roomlist:
     def add_room(self, room):
         connection = dbapi2.connect(current_app.config['dsn'])
         cursor = connection.cursor()
-        cursor.execute("""INSERT INTO ROOMS (maxp, userid)
-        VALUES    (%s, %s)""",  (room.maxp, room.userid))
+        cursor.execute("""INSERT INTO ROOMS (maxp, userid, refcode, roomname)
+        VALUES    (%s, %s, %s, %s)""",  (room.maxp, room.userid, room.refcode, room.roomname ))
 
         cursor.execute("""SELECT
                         roomid

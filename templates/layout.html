@@ -45,6 +45,7 @@
                 <ul class="nav masthead-nav">
 			  		<li style=" {% if current_user.activetab == 0 %} background-color: #ababab; padding-right:10px; padding-left: 10px{%endif%}"><a class="active" href="{{ url_for('home_page') }}">Home{%if current_user.is_authenticated %}-{{ current_user.username }}{%else%}{%endif%}</a></li>
 			  		{% if current_user.is_authenticated %}
+                    <li><a href="{{ url_for('addroom') }}">Add Room</a></li>
 			  		<li><a href="{{ url_for('logout_page') }}">Logout</a></li>
 			  		{% else %}
 			  		<li><a href="{{ url_for('register_page') }}">Register</a></li>

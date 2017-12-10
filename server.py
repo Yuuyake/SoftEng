@@ -98,6 +98,8 @@ def register_page():
 @login_required
 def home_page():
     current_user.activetab = 0
+    refcode="12345"
+    roomn="mfirst"
     now = datetime.datetime.now()
     if    request.method == 'GET':
         now = datetime.datetime.now()
@@ -105,11 +107,25 @@ def home_page():
         chkrm=current_app.Roomlist.chkroom(userid)
 
         if(chkrm==0):
-            room=Room(1,userid,10)
+            room=Room(1,userid,10, refcode, roomn)
             current_app.Roomlist.add_room(room)
 
         rooms = current_app.Roomlist.get_room_user(userid)
         return render_template('home.html', username=request.args.get('username'), rooms=rooms,  current_time=now.ctime())
+
+@app.route('/addroom', methods=['GET', 'POST'])
+@login_required
+def add_room():
+   if request.method == 'GET':
+        return render_template('add_room.html')
+   else:
+        userid=current_app.Roomlist.getid()
+        roomname = request.form['content']
+        refcode = request.form['refcode']
+        maxp = request.form['maxp']
+        room=Room(1,userid,maxp, refcode, roomname)
+        current_app.Roomlist.add_room(room)
+        return(redirect(url_for('home_page')))
 
 @app.route('/404', methods=['GET'])
 @login_required
@@ -150,7 +166,8 @@ def rooms_page(room_id):
             return(redirect(url_for('error_page')))
 
         else:
-            return render_template('room.html', messages=message, room_id=room_id)
+            rooms=current_app.Roomlist.get_room(room_id)
+            return render_template('room.html', messages=message, roomname=rooms.roomname)
     else:
         content = request.form['content']
         messageid=0
