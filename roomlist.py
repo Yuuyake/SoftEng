@@ -65,12 +65,28 @@ class Roomlist:
                         ORDER BY rooms.roomid DESC""", (userid,))
 
         if cursor.rowcount==0:
-            room = Room(-1, -1, -1)
+            room = Room(-1, 'admin', 11)
             return room
 
         room = [(Room(roomid, username, maxp))
                     for roomid, username, maxp in cursor]
         return room
+
+    def chkroom(self, userid):
+        connection = dbapi2.connect(current_app.config['dsn'])
+        cursor = connection.cursor()
+        cursor.execute("""SELECT
+                        rooms.roomid,
+                        users.username,
+                        rooms.maxp
+                        FROM ROOMS
+                        RIGHT JOIN USERS ON users.id = rooms.userid
+                        WHERE rooms.userid=%s
+                        ORDER BY rooms.roomid DESC""", (userid,))
+        if cursor.rowcount==0:
+                return 0
+
+        return 1
 
     def add_room(self, room):
         connection = dbapi2.connect(current_app.config['dsn'])
@@ -79,15 +95,14 @@ class Roomlist:
         VALUES    (%s, %s)""",  (room.maxp, room.userid))
 
         cursor.execute("""SELECT
-                        room.roomid
+                        roomid
                         FROM rooms
-                        WHERE rooms.userid=%s
-                        ORDER BY rooms.roomid DESC""", (room.userid,))
+                        WHERE userid=%s
+                        ORDER BY roomid DESC""", (room.userid,))
 
-        room=cursor.fetchone()
-
+        rooma=cursor.fetchone()
         cursor.execute("""INSERT INTO ENROLL (userid, roomid)
-        VALUES    (%s, %s)""",  (room.userid, room.roomid))
+        VALUES    (%s, %s)""",  (room.userid, rooma))
         connection.commit()
         connection.close()
 

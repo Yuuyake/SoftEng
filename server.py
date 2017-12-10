@@ -80,6 +80,7 @@ def login_page():
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm(request.form)
+
     if request.method == 'POST' and form.validate():
         username = form.username.data
         password = pwd_context.encrypt(form.password.data)
@@ -87,19 +88,10 @@ def register_page():
             with dbapi2.connect(app.config['dsn']) as connection:
                 with connection.cursor() as cursor:
                     cursor.execute("""INSERT INTO USERS (USERNAME, PASSWORD) VALUES (%s, %s)""", (username, password))
-
-            with dbapi2.connect(app.config['dsn']) as connection:
-                with connection.cursor() as cursor:
-                    userid = get_userid(username)
-                    cursor.execute("""INSERT INTO USERPROFILE (ID, NICKNAME, USERNAME, BIO) VALUES(%s, %s, %s, %s)""", (userid, username, username, 'bio'))
-                    cursor.execute("""INSERT INTO USERINFO (USERID, NAME, SURNAME, NICKNAME, EMAIL, LANGUAGE) VALUES(%s, %s, %s, %s, %s, %s)""",
-                                   (userid, '', '', '', '', ''))
-                    cursor.execute("""INSERT INTO POINTS (USERID) VALUES(%s)""", (userid,))
-                    login_user(get_user(username))
+                    user=get_user(username)
                     return redirect(url_for('home_page'))
         except:
-            flash('Username is already taken')
-
+            return render_template('register.html', form=form)
     return render_template('register.html', form=form)
 
 @app.route('/home', methods=['GET'])
@@ -110,6 +102,12 @@ def home_page():
     if    request.method == 'GET':
         now = datetime.datetime.now()
         userid=current_app.Roomlist.getid()
+        chkrm=current_app.Roomlist.chkroom(userid)
+
+        if(chkrm==0):
+            room=Room(1,userid,10)
+            current_app.Roomlist.add_room(room)
+
         rooms = current_app.Roomlist.get_room_user(userid)
         return render_template('home.html', username=request.args.get('username'), rooms=rooms,  current_time=now.ctime())
 

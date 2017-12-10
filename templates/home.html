@@ -34,7 +34,9 @@
     <h3>Your Rooms...</h3>
 
         {% for room in rooms %}
+	    {% if room.roomid == None %}
 
+		{% else %}
 		<div id="twitwrapper">
 		<h4>
 		<a d="twittit"; style="color: black" style="text-decoration: none" href="{{ url_for('rooms_page', room_id=room.roomid ) }}">
@@ -43,6 +45,7 @@
 		</h4>
 		</div>
 		<br><br>
+	    {% endif %}
 		{% endfor %}
 
 	</body>
