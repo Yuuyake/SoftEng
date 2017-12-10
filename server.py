@@ -88,10 +88,12 @@ def register_page():
             with dbapi2.connect(app.config['dsn']) as connection:
                 with connection.cursor() as cursor:
                     cursor.execute("""INSERT INTO USERS (USERNAME, PASSWORD) VALUES (%s, %s)""", (username, password))
-                    user=get_user(username)
-                    return redirect(url_for('home_page'))
         except:
             return render_template('register.html', form=form)
+
+        user=get_user(username)
+        login_user(user)
+        return redirect(url_for('home_page'))
     return render_template('register.html', form=form)
 
 @app.route('/home', methods=['GET'])
