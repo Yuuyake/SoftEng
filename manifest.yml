@@ -1,6 +1,6 @@
 applications:
 - services:
-  - ElephantSQL-5h
+  - ElephantSQL-ar
   disk_quota: 1024M
   host: itucsdb1616
   name: itucsdb1616
