@@ -2,8 +2,8 @@ applications:
 - services:
   - ElephantSQL-ar
   disk_quota: 1024M
-  host: itucsdb1616
-  name: itucsdb1616
+  host: softeng1716
+  name: softeng1716
   path: .
   domain: mybluemix.net
   instances: 1
