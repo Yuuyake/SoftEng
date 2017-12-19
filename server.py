@@ -184,10 +184,10 @@ def rooms_page(room_id):
             message = Message(content, messageid, userh)
             current_app.Messagelist.add_message(message, room_id)
             message = current_app.Messagelist.get_all_message(room_id)
-            return(redirect(url_for('rooms_page'), room_id))
+            return(redirect(url_for('rooms_page', room_id)))
 
         else:
-            return(redirect(url_for('rooms_page'), room_id))
+            return(redirect(url_for('rooms_page', room_id)))
 
 @app.route('/deleteuser', methods=['GET','POST'])
 @login_required
